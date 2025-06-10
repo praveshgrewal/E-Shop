@@ -1,21 +1,70 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Your Orders</h2>
+<style>
+    .orders-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-{% if orders %}
-    <ul>
-        {% for order in orders %}
-            <li>
-                <strong>Order #{{ order.id }}</strong> - ₹{{ '%.2f' % order.total }}<br />
-                <ul>
-                {% for item in order.product_list %}
-                    <li>{{ item.name }} x {{ item.quantity }}</li>
-                {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>You have no orders.</p>
-{% endif %}
+    .orders-container h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 2rem;
+    }
+
+    .order-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .order-list > li {
+        background: #f4f6f8;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .order-list strong {
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    .order-items {
+        list-style: disc;
+        padding-left: 2rem;
+        margin-top: 0.5rem;
+    }
+
+    .no-orders {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #777;
+    }
+</style>
+
+<div class="orders-container">
+    <h2>Your Orders</h2>
+
+    {% if orders %}
+        <ul class="order-list">
+            {% for order in orders %}
+                <li>
+                    <strong>Order #{{ order.id }}</strong> – ₹{{ '%.2f' % order.total }}
+                    <ul class="order-items">
+                        {% for item in order.product_list %}
+                            <li>{{ item.name }} x {{ item.quantity }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-orders">You have no orders.</p>
+    {% endif %}
+</div>
 {% endblock %}
