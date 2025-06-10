@@ -1,19 +1,84 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>All Products</h2>
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
-    {% for product in products %}
-    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
-        {% if product.image %}
-            <img src="{{ url_for('static', filename='images/' ~ product.image) }}" width="100%" />
-        {% endif %}
-        <h4>{{ product.name }}</h4>
-        <p>₹{{ product.price }}</p>
-        <p>{{ product.description }}</p>
-        <form action="{{ url_for('product_page', product_id=product.id) }}" method="GET">
-            <button type="submit">View & Buy</button>
-        </form>
+<style>
+    .products-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1rem;
+    }
+
+    .products-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .product-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        width: 220px;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-card h4 {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+        color: #2c3e50;
+    }
+
+    .product-card p {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .product-card button {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    .product-card button:hover {
+        background-color: #1abc9c;
+    }
+</style>
+
+<div class="products-container">
+    <h2 style="text-align:center; color:#2c3e50;">All Products</h2>
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            {% if product.image %}
+                <img src="{{ url_for('static', filename='images/' ~ product.image) }}" alt="{{ product.name }}">
+            {% endif %}
+            <h4>{{ product.name }}</h4>
+            <p><strong>₹{{ product.price }}</strong></p>
+            <p>{{ product.description }}</p>
+            <form action="{{ url_for('product_page', product_id=product.id) }}" method="GET">
+                <button type="submit">View & Buy</button>
+            </form>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
