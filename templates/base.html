@@ -3,19 +3,73 @@
 <head>
     <meta charset="UTF-8" />
     <title>E-Shop</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #1abc9c;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 0;
+        }
+
+        .flashes {
+            list-style: none;
+            padding: 1rem 2rem;
+            margin: 0;
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            margin: 1rem 2rem;
+        }
+
+        .flashes li {
+            margin-bottom: 0.5rem;
+        }
+
+        {% block content %}
+        /* You can style your page content here */
+        {% endblock %}
+    </style>
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">Home</a>
-        {% if current_user.is_authenticated %}
-            <a href="{{ url_for('cart') }}">Cart</a>
-            <a href="{{ url_for('orders') }}">Orders</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-        {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}">Register</a>
-        {% endif %}
+        <div>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('cart') }}">Cart</a>
+                <a href="{{ url_for('orders') }}">Orders</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
     </nav>
     <hr />
     {% with messages = get_flashed_messages() %}
