@@ -1,27 +1,86 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Your Cart</h2>
+<style>
+    .cart-container {
+        max-width: 900px;
+        margin: 3rem auto;
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-{% if items %}
-    <table>
-        <tr>
-            <th>Product</th><th>Quantity</th><th>Price</th><th>Subtotal</th>
-        </tr>
-        {% for item in items %}
-        <tr>
-            <td>{{ item.product.name }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>₹{{ item.product.price }}</td>
-            <td>₹{{ '%.2f' % (item.product.price * item.quantity) }}</td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td colspan="3"><strong>Total</strong></td>
-            <td><strong>₹{{ '%.2f' % total }}</strong></td>
-        </tr>
-    </table>
-    <a href="{{ url_for('checkout') }}">Checkout</a>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
-{% endblock %}
+    .cart-container h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5rem;
+    }
+
+    th, td {
+        padding: 1rem;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+
+    th {
+        background-color: #2c3e50;
+        color: white;
+    }
+
+    tr:last-child td {
+        font-weight: bold;
+    }
+
+    .checkout-link {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #2c3e50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .checkout-link:hover {
+        background-color: #1abc9c;
+    }
+
+    .empty-message {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #777;
+    }
+</style>
+
+<div class="cart-container">
+    <h2>Your Cart</h2>
+
+    {% if items %}
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.product.price }}</td>
+                <td>₹{{ '%.2f' % (item.product.price * item.quantity) }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td><strong>₹{{ '%.2f' % total }}</strong></td>
+            </tr>
+        </table>
+        <a class="checkout-link" href="{{ url_for('checkout') }}">Ch_
