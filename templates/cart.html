@@ -83,4 +83,9 @@
                 <td><strong>₹{{ '%.2f' % total }}</strong></td>
             </tr>
         </table>
-        <a class="checkout-link" href="{{ url_for('checkout') }}">Ch_
+        <a class="checkout-link" href="{{ url_for('checkout') }}">Checkout</a>
+    {% else %}
+        <p class="empty-message">Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}
