@@ -51,10 +51,6 @@
         .flashes li {
             margin-bottom: 0.5rem;
         }
-
-        {% block content %}
-        /* You can style your page content here */
-        {% endblock %}
     </style>
 </head>
 <body>
@@ -81,6 +77,8 @@
             </ul>
         {% endif %}
     {% endwith %}
+
+    <!-- ✅ Correct place for the content block -->
     {% block content %}{% endblock %}
 </body>
 </html>
